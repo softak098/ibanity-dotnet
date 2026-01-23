@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+
 using Ibanity.Apis.Client.Http;
 using Ibanity.Apis.Client.JsonApi;
 using Ibanity.Apis.Client.Products.eInvoicing.Models;
@@ -53,7 +54,9 @@ namespace Ibanity.Apis.Client.Products.eInvoicing
             var result = base.Map(data);
 
             result.SupplierId = Guid.Parse(data.Relationships.Supplier.Data.Id);
-            result.BusinessStatusId = Guid.Parse(data.Relationships?.BusinessStatus?.Data?.Id);
+
+            if (data.Relationships?.BusinessStatus?.Data != null)
+                result.BusinessStatusId = Guid.Parse(data.Relationships?.BusinessStatus?.Data?.Id);
 
             return result;
         }
