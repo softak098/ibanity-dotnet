@@ -253,5 +253,12 @@ namespace Ibanity.Apis.Client.Products.eInvoicing.Models
         /// </summary>
         [DataMember(Name = "vatNumbers", EmitDefaultValue = false)]
         public List<string> VatNumbers { get; set; }
+
+        /// <summary>
+        /// A list of GLN numbers.
+        /// </summary>
+        [DataMember(Name = "globalLocationNumbers", EmitDefaultValue = false)]
+        public List<string> GlobalLocationNumbers { get; set; }
+
     }
 }
