@@ -143,6 +143,12 @@ namespace Ibanity.Apis.Client.Products.eInvoicing.Models
         /// <value>&lt;i&gt;(Optional)&lt;/i&gt; The flag denoting whether a given supplier should be registered on Peppol in order to receive Peppol documents. Default value is false.</value>
         [DataMember(Name = "peppolReceiver", EmitDefaultValue = false)]
         public bool? PeppolReceiver { get; set; }
+
+        /// <summary>
+        /// A list of PEPPOL inbound document formats.
+        /// </summary>
+        [DataMember(Name = "peppolInboundDocumentFormats", EmitDefaultValue = false)]
+        public List<string> PeppolInboundDocumentFormats { get; set; }
     }
 
     /// <inheritdoc cref="Supplier" />
