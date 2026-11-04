@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+
 using Ibanity.Apis.Client.Http;
 using Ibanity.Apis.Client.Products.PontoConnect.Models;
 using Ibanity.Apis.Client.Utils;
@@ -12,7 +13,7 @@ namespace Ibanity.Apis.Client.Products.PontoConnect
     /// <para>An account has related transactions and belongs to a financial institution.</para>
     /// <para>An account may be revoked from an integration using the revoke account endpoint. To recover access, the user must add the account back to the integration in their Ponto Dashboard or in a new authorization flow.</para>
     /// </summary>
-    public class Accounts : ResourceClient<AccountResponse, AccountMeta, object, object, Token>, IAccounts
+    public class Accounts : ResourceClient<AccountResponse, AccountMeta, AccountRelationships, object, Token>, IAccounts
     {
         private const string EntityName = "accounts";
 
@@ -52,7 +53,7 @@ namespace Ibanity.Apis.Client.Products.PontoConnect
             InternalDelete(token, id, cancellationToken);
 
         /// <inheritdoc />
-        protected override AccountResponse Map(JsonApi.Data<AccountResponse, AccountMeta, object, object> data)
+        protected override AccountResponse Map(JsonApi.Data<AccountResponse, AccountMeta, AccountRelationships, object> data)
         {
             var result = base.Map(data);
 
@@ -61,6 +62,8 @@ namespace Ibanity.Apis.Client.Products.PontoConnect
 
             result.LatestSynchronization = data.Meta.LatestSynchronization.Attributes;
             result.LatestSynchronization.Id = Guid.Parse(data.Meta.LatestSynchronization.Id);
+
+            result.FinancialInstitutionId = data.Relationships.FinancialInstitution?.Data?.Id != null ? Guid.Parse(data.Relationships.FinancialInstitution.Data.Id) : (Guid?)null;
 
             return result;
         }

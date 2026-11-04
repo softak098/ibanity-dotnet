@@ -148,6 +148,11 @@ namespace Ibanity.Apis.Client.Products.PontoConnect.Models
         /// <para>readonly if the financial institution is undertaking maintenance and cannot be reached. Existing data is available but you cannot, for example, synchronize the account until the maintenance is complete</para>
         /// </summary>
         public string Availability { get; set; }
+
+        /// <summary>
+        /// The ID of the financial institution that this account belongs to.
+        /// </summary>
+        public Guid? FinancialInstitutionId { get; set; }
     }
 
     /// <summary>
@@ -175,5 +180,18 @@ namespace Ibanity.Apis.Client.Products.PontoConnect.Models
         /// </summary>
         [DataMember(Name = "availability", EmitDefaultValue = false)]
         public string Availability { get; set; }
+    }
+
+    /// <summary>
+    /// Link to the account that this transaction belongs to.
+    /// </summary>
+    [DataContract]
+    public class AccountRelationships
+    {
+        /// <summary>
+        /// Link to the financial institution that this account belongs to.
+        /// </summary>
+        [DataMember(Name = "financialInstitution", EmitDefaultValue = false)]
+        public JsonApi.Relationship FinancialInstitution { get; set; }
     }
 }
